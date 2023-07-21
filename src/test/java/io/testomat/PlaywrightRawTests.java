@@ -9,7 +9,7 @@ import org.junit.jupiter.api.*;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 
-public class PlaywrightTests {
+public class PlaywrightRawTests {
 
     static Playwright playwright;
     static Browser browser;
@@ -25,7 +25,8 @@ public class PlaywrightTests {
         playwright = Playwright.create();
         browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
                 .setHeadless(false)
-                .setSlowMo(500));
+                .setSlowMo(500)
+        );
     }
 
     @AfterAll
