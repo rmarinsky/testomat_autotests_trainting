@@ -1,4 +1,4 @@
-package io.testomat;
+package io.testomat.ui;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.junit5.TextReportExtension;

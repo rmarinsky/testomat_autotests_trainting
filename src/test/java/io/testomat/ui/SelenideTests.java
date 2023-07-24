@@ -1,4 +1,4 @@
-package io.testomat;
+package io.testomat.ui;
 
 import com.codeborne.selenide.Condition;
 import com.github.javafaker.Faker;
