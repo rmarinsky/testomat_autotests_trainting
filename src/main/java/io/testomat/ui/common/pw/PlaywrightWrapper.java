@@ -49,12 +49,12 @@ public class PlaywrightWrapper {
         pwStage().getPage().navigate(targetUrl);
     }
 
-    public LocationActions find(String selector) {
-        return new LocationActions(pwStage().getPage().locator(selector).first());
+    public LocatorActions find(String selector) {
+        return new LocatorActions(pwStage().getPage().locator(selector).first());
     }
 
-    public LocationActions find(String selector, String text) {
-        return new LocationActions(pwStage().getPage().locator(selector).filter(
+    public LocatorActions find(String selector, String text) {
+        return new LocatorActions(pwStage().getPage().locator(selector).filter(
                 new Locator.FilterOptions().setHasText(text)
         ));
     }

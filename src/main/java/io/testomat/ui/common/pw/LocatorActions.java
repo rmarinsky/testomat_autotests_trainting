@@ -5,42 +5,41 @@ import io.testomat.ui.common.pw.conditions.Condition;
 import lombok.Data;
 
 @Data
-public class LocationActions {
+public class LocatorActions {
 
     private final Locator locator;
 
-
-    public LocationActions fill(String text) {
+    public LocatorActions fill(String text) {
         locator.fill(text);
         return this;
     }
 
-    public LocationActions press(String key) {
+    public LocatorActions press(String key) {
         locator.press(key);
         return this;
     }
 
-    public LocationActions click() {
+    public LocatorActions click() {
         locator.click();
         return this;
     }
 
-    public LocationActions shouldBe(Condition condition) {
+    public LocatorActions shouldBe(Condition condition) {
         condition.verify(this);
         return this;
     }
 
-    public LocationActions should(Condition condition) {
+    public LocatorActions should(Condition condition) {
         condition.verify(this);
         return this;
     }
 
-    public LocationActions shouldHave(Condition condition) {
+    public LocatorActions shouldHave(Condition condition) {
         condition.verify(this);
         return this;
     }
 
-    public LocationActions shouldHas(Condition condition) {
+    public LocatorActions shouldHas(Condition condition) {
         condition.verify(this);
         return this;
     }

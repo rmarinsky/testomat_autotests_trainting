@@ -24,7 +24,7 @@ public class PWWrapperTests {
     @BeforeEach
     void createContextAndPage() {
         open("/users/sign_in");
-        find("#content-desktop #new_user").shouldBe(Condition.visible);
+        find("#content-desktop #new_user").shouldBe(Condition.visible).shouldHas(Condition.text("Sign in"));
 
         find("#content-desktop #user_email").fill("newromka@gmail.com");
         find("#content-desktop #user_password")

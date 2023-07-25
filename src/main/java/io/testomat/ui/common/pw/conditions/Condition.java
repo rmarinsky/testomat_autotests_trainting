@@ -1,6 +1,6 @@
 package io.testomat.ui.common.pw.conditions;
 
-import io.testomat.ui.common.pw.LocationActions;
+import io.testomat.ui.common.pw.LocatorActions;
 
 public interface Condition {
 
@@ -11,6 +11,6 @@ public interface Condition {
         return new TextCondition(expectedText);
     }
 
-    void verify(LocationActions locationActions);
+    void verify(LocatorActions locatorActions);
 
 }
