@@ -1,54 +1,61 @@
 package io.testomat.api;
 
-import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static io.restassured.RestAssured.*;
+
 public class LoginUserAdHocTests {
 
     static {
-        RestAssured.baseURI = "https://beta.testomat.io";
+        baseURI = "https://beta.testomat.io";
+        requestSpecification = new RequestSpecBuilder()
+                .log(LogDetail.ALL)
+                .build();
     }
 
 
     @Test
     @DisplayName("login user to testomat via UI emulation")
     void loginUserToTestomatViaUiEmulation() {
-        String signInForm = RestAssured.given()
+        var signInForm = given()
                 .basePath("/users/sign_in")
-                .get()
-                .body().asString();
+                .get();
 
-        extractAuthTokenFormForm(signInForm);
+        var token = extractAuthTokenFormForm(signInForm.asString());
 
-
-        Response signInPost = RestAssured.given()
+        var signInUser = given()
                 .basePath("/users/sign_in")
                 .redirects().follow(false)
+                .accept(ContentType.HTML)
                 .contentType(ContentType.URLENC)
+                .cookies(signInForm.getDetailedCookies())
                 .formParams(
                         "user[email]", "newromka@gmail.com",
                         "user[password]", "testtest",
-                        "authenticity_token", signInForm,
+                        "authenticity_token", token,
                         "user[remember_me]", "0",
                         "commit", "Sign in"
                 ).post();
-        System.out.println(signInPost.header("Set-Cookie"));
-        signInPost
+
+        given().cookies(signInUser.getDetailedCookies())
+                .get(signInUser.header("location"))
                 .prettyPeek();
     }
 
-    private static void extractAuthTokenFormForm(String signInForm) {
+    private static String extractAuthTokenFormForm(String signInForm) {
         Pattern pattern = Pattern.compile("name=\"authenticity_token\" value=\"(.*?)\"");
         Matcher matcher = pattern.matcher(signInForm);
         if (matcher.find()) {
-            System.out.println(matcher.group(1));
+            return matcher.group(1);
         }
+        return null;
     }
 
 }
