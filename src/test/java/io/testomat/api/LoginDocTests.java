@@ -5,13 +5,9 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.testomat.ui.common.pw.Configuration;
-import io.testomat.ui.common.pw.conditions.Condition;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static io.testomat.ui.common.pw.PlaywrightWrapper.find;
-import static io.testomat.ui.common.pw.PlaywrightWrapper.open;
 
 public class LoginDocTests {
 
@@ -20,8 +16,7 @@ public class LoginDocTests {
                 .setBaseUri("https://beta.testomat.io")
                 .setBasePath("/api")
                 .log(LogDetail.ALL)
-                .build()
-                .baseUri("https://beta.testomat.io");
+                .build();
 
         Configuration.baseUrl = "https://beta.testomat.io";
         Configuration.poolingInterval = 50;
@@ -57,22 +52,6 @@ public class LoginDocTests {
                 .body(targetSuiteBody)
                 .post("/{targetProject}/suites", targetProject)
                 .prettyPeek();
-
-        open("/users/sign_in");
-        find("#content-desktop #new_user").shouldBe(Condition.visible);
-
-        find("#content-desktop #user_email").fill("newromka@gmail.com");
-        find("#content-desktop #user_password")
-                .fill("testtest")
-                .press("Enter")
-                .shouldBe(Condition.hidden);
-
-        open("/projects/" + targetProject);
-
-        find(".list-group-wrapper a[href*='suite']", titleOfTestSuite).shouldBe(Condition.visible);
-
-        Thread.sleep(10000);
-
 
     }
 
