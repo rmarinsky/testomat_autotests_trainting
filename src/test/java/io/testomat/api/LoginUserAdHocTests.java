@@ -1,7 +1,5 @@
 package io.testomat.api;
 
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,15 +7,14 @@ import org.junit.jupiter.api.Test;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.baseURI;
+import static io.restassured.RestAssured.given;
 
 public class LoginUserAdHocTests {
 
     static {
         baseURI = "https://beta.testomat.io";
-        requestSpecification = new RequestSpecBuilder()
-                .log(LogDetail.ALL)
-                .build();
+
     }
 
 

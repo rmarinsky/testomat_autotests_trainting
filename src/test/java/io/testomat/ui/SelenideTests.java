@@ -2,6 +2,8 @@ package io.testomat.ui;
 
 import com.codeborne.selenide.Condition;
 import com.github.javafaker.Faker;
+import io.testomat.common.CredentialsLoader;
+import io.testomat.common.CredentialsLoader.Credentials;
 import io.testomat.ui.dtos.BaseProjectInfo;
 import io.testomat.ui.pages.ProjectsPage;
 import io.testomat.ui.pages.SignInPage;
@@ -20,6 +22,8 @@ import static io.testomat.ui.pages.PreLoaders.disappearsMainPreloader;
 @DisplayName("Smoke tests for testomat.io")
 public class SelenideTests extends BaseTest {
 
+    Credentials admin = CredentialsLoader.getAdmin();
+
     Faker faker = new Faker();
     ProjectsPage projectsPage = new ProjectsPage();
 
@@ -29,7 +33,7 @@ public class SelenideTests extends BaseTest {
         open("/users/sign_in");
         new SignInPage()
                 .isLoaded()
-                .singUser();
+                .singInUser(admin);
 
         open("/projects/new");
     }

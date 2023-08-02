@@ -1,16 +1,16 @@
 package io.testomat.api.common;
 
 import io.restassured.response.Response;
+import lombok.SneakyThrows;
 import org.assertj.core.api.Assertions;
+
+import static io.testomat.api.common.BindingExceptionHandler.catchResponseException;
 
 public class ResponseDecorator<T> {
 
     private Response targetResponse;
     private int expectedDefaultStatusCode;
     private Class<T> targetClass;
-
-    public ResponseDecorator() {
-    }
 
     public ResponseDecorator(Response targetResponse, int expectedDefaultStatusCode, Class<T> targetClass) {
         this.targetResponse = targetResponse;
@@ -23,9 +23,21 @@ public class ResponseDecorator<T> {
         return this;
     }
 
+    @SneakyThrows
     public <T> T toObject() {
-        Assertions.assertThat(targetResponse.statusCode()).isEqualTo(expectedDefaultStatusCode);
-        return (T) targetResponse.as(this.targetClass);
+        Assertions.assertThat(targetResponse.statusCode())
+                .withFailMessage(String.format(
+                        "Expected status code %s, but was %s \nresponse body was %s",
+                        expectedDefaultStatusCode,
+                        targetResponse.statusCode(),
+                        targetResponse.body().asPrettyString()
+                ))
+                .isEqualTo(expectedDefaultStatusCode);
+        try {
+            return (T) targetResponse.as(this.targetClass);
+        } catch (Exception e) {
+            throw /*new RuntimeException(e.getMessage())*/catchResponseException(e, targetClass);
+        }
     }
 
     public <T> T as(Class<T> targetClass) {

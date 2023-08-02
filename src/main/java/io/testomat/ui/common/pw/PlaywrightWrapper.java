@@ -59,6 +59,14 @@ public class PlaywrightWrapper {
         ));
     }
 
+    public void mockRequestWith(String url, String response) {
+        pwStage().getPage().route(url, route -> route.fulfill(
+                new Route.FulfillOptions()
+                        .setStatus(200)
+                        .setBody(response)
+        ));
+    }
+
     @Data
     public static class PWStage {
 

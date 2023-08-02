@@ -1,6 +1,7 @@
 package io.testomat.api.dtos.postSuite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.testomat.api.dtos.getSuite.Children;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +16,9 @@ import java.util.List;
 public class SuitesResponse {
     @JsonProperty("data")
     private Datas data;
+
+    @JsonProperty("included")
+    private List<Object> included;
 
     @Data
     @Builder
@@ -45,7 +49,7 @@ public class SuitesResponse {
             private List<Object> tags;
 
             @JsonProperty("issues")
-            private Object issues;
+            private List<Object> issues;
 
             @JsonProperty("jira-issues")
             private Object jiraIssues;
@@ -122,6 +126,9 @@ public class SuitesResponse {
             @JsonProperty("branch")
             private Branch branch;
 
+            @JsonProperty("children")
+            private Children children;
+
             @Data
             @Builder
             @NoArgsConstructor
@@ -132,4 +139,9 @@ public class SuitesResponse {
             }
         }
     }
+
+    private static class Included {
+
+    }
+
 }

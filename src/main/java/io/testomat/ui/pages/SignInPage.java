@@ -1,17 +1,18 @@
 package io.testomat.ui.pages;
 
 import com.codeborne.selenide.Condition;
+import io.testomat.common.CredentialsLoader;
 
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class SignInPage extends  BasePage {
+public class SignInPage extends BasePage {
 
-    public SignInPage singUser() {
-        find("#user_email").val("newromka@gmail.com");
+    public SignInPage singInUser(CredentialsLoader.Credentials admin) {
+        find("#user_email").val(admin.getUsername());
         find("#user_password")
-                .val("p8qfCZ7Jv7pT!hh")
+                .val(admin.getPassword())
                 .pressEnter();
         return this;
     }

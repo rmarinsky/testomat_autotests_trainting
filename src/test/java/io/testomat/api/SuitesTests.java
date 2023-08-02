@@ -2,6 +2,7 @@ package io.testomat.api;
 
 import com.github.javafaker.Book;
 import com.github.javafaker.Faker;
+import io.testomat.api.asserts.SuiteResponseAsserts;
 import io.testomat.api.controllers.AuthController;
 import io.testomat.api.controllers.SuitesController;
 import io.testomat.api.dtos.postSuite.SuitesRequest;
@@ -15,7 +16,7 @@ import static io.testomat.api.dtos.postSuite.SuitesRequest.DataDetail.Attributes
 
 public class SuitesTests {
 
-    private Book book = new Faker().book();
+    private final Book book = new Faker().book();
     private String authToken;
 
     @BeforeEach
@@ -37,9 +38,14 @@ public class SuitesTests {
                 .createSuite(targetProject, targetTestSuite)
                 .toObject();
 
-        var getSuite = suitesController
+        SuitesResponse getSuite = suitesController
                 .getSuite(targetProject, suitesResponse.getData().getId())
                 .toObject();
+
+        new SuiteResponseAsserts(getSuite)
+                .idIsNotNull()
+                .fileTypeIsPdf();
+
     }
 
     @Test
