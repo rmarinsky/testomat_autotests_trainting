@@ -27,7 +27,7 @@ public class SuitesTests {
         Configuration.baseUrl = "https://beta.testomat.io";
         Configuration.poolingInterval = 50;
         Configuration.defaultTimeout = 10000;
-        Configuration.headless = false;
+        Configuration.headless = true;
     }
 
     private String authToken;
