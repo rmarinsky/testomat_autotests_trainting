@@ -10,15 +10,15 @@ import io.testomat.api.dtos.postSuite.SuitesRequest.DataDetail;
 import io.testomat.api.dtos.postSuite.SuitesResponse;
 import io.testomat.ui.common.pw.Configuration;
 import io.testomat.ui.common.pw.conditions.Condition;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static io.testomat.api.dtos.postSuite.SuitesRequest.DataDetail.Attributes;
 import static io.testomat.ui.common.pw.PlaywrightWrapper.find;
 import static io.testomat.ui.common.pw.PlaywrightWrapper.open;
 import static io.testomat.ui.common.pw.conditions.Condition.text;
 
+@Tags({@Tag("api"), @Tag("smoke")})
+@DisplayName("Suites tests")
 public class SuitesTests {
 
     private final Book book = new Faker().book();

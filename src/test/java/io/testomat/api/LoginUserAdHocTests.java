@@ -1,5 +1,6 @@
 package io.testomat.api;
 
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -7,16 +8,13 @@ import org.junit.jupiter.api.Test;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
 public class LoginUserAdHocTests {
 
     static {
-        baseURI = "https://beta.testomat.io";
-
+        RestAssured.baseURI = "https://beta.testomat.io";
     }
-
 
     @Test
     @DisplayName("login user to testomat via UI emulation")

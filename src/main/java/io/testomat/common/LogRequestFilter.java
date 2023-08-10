@@ -18,6 +18,9 @@ public class LogRequestFilter implements OrderedFilter {
             FilterContext ctx
     ) {
         logger.info(requestSpec.getMethod().toUpperCase() + " " + requestSpec.getURI());
+        if (requestSpec.getBody() != null)
+            logger.info("Request body:\n" + requestSpec.getBody().toString());
+
 
         Response response = ctx.next(requestSpec, responseSpec);
 
@@ -33,7 +36,7 @@ public class LogRequestFilter implements OrderedFilter {
     }
 
     private boolean needToLogResponse() {
-//        Properties properties = new Properties();
+        //        Properties properties = new Properties();
         // Assuming you load properties from file/classpath/env
         return true/*Boolean.parseBoolean(properties.getProperty("log.response"))*/;
     }

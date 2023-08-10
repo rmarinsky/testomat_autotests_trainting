@@ -1,5 +1,6 @@
 package io.testomat.api.asserts;
 
+import io.qameta.allure.Step;
 import io.testomat.api.dtos.postSuite.SuitesResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,6 +13,7 @@ public class SuiteResponseAsserts extends SuitesResponse {
         this.suiteResponse = suiteResponse;
     }
 
+    @Step
     public SuiteResponseAsserts idIsNotNull() {
         assertThat(suiteResponse.getData().getId())
                 .withFailMessage("id is null")
@@ -19,6 +21,7 @@ public class SuiteResponseAsserts extends SuitesResponse {
         return this;
     }
 
+    @Step
     public SuiteResponseAsserts labelsShouldBeEmpty() {
         var actualLabels = suiteResponse.getData().getAttributes().getLabels();
         assertThat(actualLabels)
@@ -27,6 +30,7 @@ public class SuiteResponseAsserts extends SuitesResponse {
         return this;
     }
 
+    @Step
     public SuiteResponseAsserts isBranched() {
         assertThat(suiteResponse.getData().getAttributes().isBranched())
                 .withFailMessage(String.format(

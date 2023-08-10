@@ -1,11 +1,13 @@
 package io.testomat.api.controllers;
 
+import io.qameta.allure.Step;
 import io.testomat.api.common.ResponseDecorator;
 import io.testomat.api.dtos.postSuite.SuitesRequest;
 import io.testomat.api.dtos.postSuite.SuitesResponse;
 
 public class SuitesController extends BaseController<SuitesController> {
 
+    @Step
     public ResponseDecorator createSuite(String targetProjectId, SuitesRequest targetSuiteBody) {
         return new ResponseDecorator(
                 baseClient()
@@ -16,6 +18,7 @@ public class SuitesController extends BaseController<SuitesController> {
         );
     }
 
+    @Step
     public ResponseDecorator<SuitesResponse> getSuites(String targetProjectId) {
         return new ResponseDecorator<>(
                 baseClient().get("/{targetProject}/suites", targetProjectId),
@@ -24,6 +27,7 @@ public class SuitesController extends BaseController<SuitesController> {
         );
     }
 
+    @Step
     public ResponseDecorator<SuitesResponse> getSuite(String targetProjectId, String targetSuiteId) {
         return new ResponseDecorator(
                 baseClient().get("/{targetProject}/suites/{targetSuite}", targetProjectId, targetSuiteId),
