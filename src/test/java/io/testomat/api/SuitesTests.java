@@ -8,15 +8,28 @@ import io.testomat.api.controllers.SuitesController;
 import io.testomat.api.dtos.postSuite.SuitesRequest;
 import io.testomat.api.dtos.postSuite.SuitesRequest.DataDetail;
 import io.testomat.api.dtos.postSuite.SuitesResponse;
+import io.testomat.ui.common.pw.Configuration;
+import io.testomat.ui.common.pw.conditions.Condition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static io.testomat.api.dtos.postSuite.SuitesRequest.DataDetail.Attributes;
+import static io.testomat.ui.common.pw.PlaywrightWrapper.find;
+import static io.testomat.ui.common.pw.PlaywrightWrapper.open;
+import static io.testomat.ui.common.pw.conditions.Condition.text;
 
 public class SuitesTests {
 
     private final Book book = new Faker().book();
+
+    static {
+        Configuration.baseUrl = "https://beta.testomat.io";
+        Configuration.poolingInterval = 50;
+        Configuration.defaultTimeout = 10000;
+        Configuration.headless = false;
+    }
+
     private String authToken;
 
     @BeforeEach
@@ -29,7 +42,6 @@ public class SuitesTests {
     @Test
     @DisplayName("positive suites tests")
     void positiveSuitesTests() {
-
         var targetTestSuite = getSuitesDto();
 
         var suitesController = new SuitesController().withToken(authToken);
@@ -43,8 +55,18 @@ public class SuitesTests {
                 .toObject();
 
         new SuiteResponseAsserts(getSuite)
-                .idIsNotNull()
-                .fileTypeIsPdf();
+                .idIsNotNull();
+
+        open("/users/sign_in");
+
+        find("#content-desktop #user_email").fill("newromka@gmail.com");
+        find("#content-desktop #user_password")
+                .fill("testtest")
+                .press("Enter")
+                .shouldBe(Condition.hidden);
+
+        open("/projects/" + targetProject + "/suite/" + suitesResponse.getData().getId());
+        find(".detailed-view-suite-body h3").shouldHas(text(suitesResponse.getData().getAttributes().getTitle()));
 
     }
 
