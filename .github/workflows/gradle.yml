@@ -18,6 +18,7 @@ permissions:
 
 jobs:
   build:
+    name: Run API tests
 
     runs-on: ubuntu-latest
 
@@ -46,7 +47,9 @@ jobs:
           report-dir: build/reports/allure-report
 
   deploy:
+    name: Deploy allure report to pages
     needs: build
+    if: always()
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
