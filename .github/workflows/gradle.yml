@@ -43,13 +43,15 @@ jobs:
         with:
           results-dir: build/allure-results
           # Allure report target dir
-          report-dir: build/report/allure-report
+          report-dir: build/reports/allure-report
 
   deploy:
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
