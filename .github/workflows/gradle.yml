@@ -37,7 +37,7 @@ jobs:
       - name: Allure report
         # You may pin to the exact commit or the version.
         # uses: afiore/action-allure-report@e43ebd6f4f4c74b07b1eb02f042902bbe6786a19
-        uses: afiore/action-allure-report@v0.1.0
+        uses: yhrunyk/action-allure-generate-report@master
         with:
           results-dir: build/allure-results
           # Allure report target dir
