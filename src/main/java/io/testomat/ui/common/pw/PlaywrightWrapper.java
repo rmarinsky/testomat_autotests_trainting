@@ -1,6 +1,7 @@
 package io.testomat.ui.common.pw;
 
 import com.microsoft.playwright.*;
+import com.microsoft.playwright.assertions.PlaywrightAssertions;
 import lombok.Data;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
@@ -65,6 +66,10 @@ public class PlaywrightWrapper {
                         .setStatus(200)
                         .setBody(response)
         ));
+    }
+
+    public void waitForUrl(String url) {
+        PlaywrightAssertions.assertThat(pwStage().getPage()).hasURL(url);
     }
 
     @Data
