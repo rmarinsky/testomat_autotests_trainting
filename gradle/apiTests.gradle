@@ -1,0 +1,24 @@
+task apiSuiteTest(type: Test) {
+    description = 'Runs the API test suite'
+    group = 'verification'
+    useJUnitPlatform() {
+        includeTags 'suite'
+    }
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+    finalizedBy "allureReport"
+}
+
+
+task apiOloTest(type: Test) {
+    description = 'Runs the API test suite'
+    group = 'verification'
+    useJUnitPlatform() {
+        includeTags 'suite'
+    }
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+    finalizedBy "allureReport"
+}

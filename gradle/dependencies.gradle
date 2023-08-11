@@ -1,0 +1,23 @@
+ext {
+    allureVer = '2.23.0'
+}
+
+dependencies {
+    implementation(
+            'com.codeborne:selenide:6.15.0',
+            'com.github.javafaker:javafaker:1.0.2',
+            'com.microsoft.playwright:playwright:1.35.1',
+            'org.slf4j:slf4j-simple:2.0.7',
+            'io.rest-assured:rest-assured:5.3.1',
+            'com.fasterxml.jackson.core:jackson-databind:2.15.2',
+            'org.assertj:assertj-core:3.24.2',
+            "io.qameta.allure:allure-rest-assured:$allureVer",
+            "io.qameta.allure:allure-selenide:$allureVer",
+    )
+
+    /*implementation 'com.aventstack:extentreports:5.1.0'
+    implementation 'com.aventstack:extentreports-testng-adapter:1.2.2'*/
+
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation('org.junit.jupiter:junit-jupiter')
+}
