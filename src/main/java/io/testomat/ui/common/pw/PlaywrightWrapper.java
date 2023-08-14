@@ -50,6 +50,10 @@ public class PlaywrightWrapper {
         pwStage().getPage().navigate(targetUrl);
     }
 
+    public Locator find(String selector, int index) {
+        return pwStage().getPage().locator(selector).nth(index);
+    }
+
     public LocatorActions find(String selector) {
         return new LocatorActions(pwStage().getPage().locator(selector).first());
     }

@@ -2,6 +2,7 @@ plugins {
     id "java"
     id "io.freefair.lombok" version "8.1.0"
     id("io.qameta.allure") version "2.11.2"
+    id 'org.jetbrains.kotlin.jvm' version '1.8.0'
 }
 
 group = 'io.testomat'
@@ -12,6 +13,10 @@ apply from: 'gradle/dependencies.gradle'
 
 repositories {
     mavenCentral()
+}
+
+kotlin {
+    jvmToolchain(11)
 }
 
 allure {
