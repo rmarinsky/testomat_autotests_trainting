@@ -72,6 +72,10 @@ public class PlaywrightWrapper {
         ));
     }
 
+    public void clearCoolies() {
+        pwStage().getContext().clearCookies();
+    }
+
     public void waitForUrl(String url) {
         PlaywrightAssertions.assertThat(pwStage().getPage()).hasURL(url);
     }
