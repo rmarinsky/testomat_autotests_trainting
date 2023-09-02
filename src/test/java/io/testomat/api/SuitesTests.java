@@ -67,7 +67,6 @@ public class SuitesTests {
 
         open("/projects/" + targetProject + "/suite/" + suitesResponse.getData().getId());
         find(".detailed-view-suite-body h3").shouldHas(text(suitesResponse.getData().getAttributes().getTitle()));
-
     }
 
     @Test

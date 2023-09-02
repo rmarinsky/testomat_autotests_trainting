@@ -3,36 +3,31 @@ package io.testomat.ui.common.pw;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.assertions.PlaywrightAssertions;
 import lombok.Data;
-import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 
+import java.nio.file.Paths;
 import java.util.concurrent.ConcurrentHashMap;
 
-@UtilityClass
 public class PlaywrightWrapper {
 
     private static final ConcurrentHashMap<Long, PWStage> pwStage = new ConcurrentHashMap<>();
 
-    public PWStage pwStage() {
-        long threadId = Thread.currentThread().getId();
-        if (!pwStage.containsKey(threadId)) {
-            Playwright playwright = Playwright.create();
-            Browser browser = playwright.chromium().launch(
+    public static PWStage pwStage() {
+        return pwStage.computeIfAbsent(Thread.currentThread().getId(), k -> {
+            var playwright = Playwright.create();
+            var browser = playwright.chromium().launch(
                     new BrowserType.LaunchOptions()
                             .setHeadless(Configuration.headless)
                             .setTimeout(Configuration.browserToStartTimeout)
-                            .setDevtools(false)
+                            .setDevtools(Configuration.devTools)
                             .setSlowMo(Configuration.poolingInterval)
+                            .setTracesDir(Paths.get(Configuration.tracesPath))
             );
-            BrowserContext context = browser.newContext();
-            Page page = context.newPage();
-            pwStage.put(threadId, new PWStage(context, page, playwright, browser));
-        }
-
-        return pwStage.get(threadId);
+            return new PWStage(null, null, playwright, browser);
+        });
     }
 
-    public void close() {
+    public static void close() {
         long threadId = Thread.currentThread().getId();
 
         if (pwStage.containsKey(threadId)) {
@@ -45,20 +40,54 @@ public class PlaywrightWrapper {
 
     }
 
-    public void open(String url) {
+    public static void initTestContext(boolean traces, String testName) {
+        var newContextOptions = new Browser.NewContextOptions();
+        newContextOptions.baseURL = Configuration.baseUrl;
+
+        var pwStage = pwStage();
+        var browserContext = pwStage.getBrowser().newContext(newContextOptions);
+        if (traces) {
+            browserContext.tracing().start(new Tracing.StartOptions()
+                    .setTitle(testName)
+                    .setName(testName + ".zip")
+                    .setScreenshots(true)
+                    .setSnapshots(true)
+                    .setSources(true)
+            );
+        }
+        var targetPage = browserContext.newPage();
+
+        pwStage.setContext(browserContext);
+        pwStage.setPage(targetPage);
+    }
+
+    public static void closeContext(boolean traces, String testName) {
+        var pwStage = pwStage();
+
+        var targetContext = pwStage.getContext();
+        if (traces) {
+            targetContext.tracing().stop(new Tracing.StopOptions()
+                    .setPath(Paths.get(Configuration.tracesPath, testName + ".zip"))
+            );
+        }
+        pwStage.getPage().close();
+        targetContext.close();
+    }
+
+    public static void open(String url) {
         var targetUrl = StringUtils.isNotBlank(Configuration.baseUrl) ? Configuration.baseUrl + url : url;
         pwStage().getPage().navigate(targetUrl);
     }
 
-    public Locator find(String selector, int index) {
+    public static Locator find(String selector, int index) {
         return pwStage().getPage().locator(selector).nth(index);
     }
 
-    public LocatorActions find(String selector) {
+    public static LocatorActions find(String selector) {
         return new LocatorActions(pwStage().getPage().locator(selector).first());
     }
 
-    public LocatorActions find(String selector, String text) {
+    public static LocatorActions find(String selector, String text) {
         return new LocatorActions(pwStage().getPage().locator(selector).filter(
                 new Locator.FilterOptions().setHasText(text)
         ));
@@ -83,10 +112,17 @@ public class PlaywrightWrapper {
     @Data
     public static class PWStage {
 
-        private final BrowserContext context;
-        private final Page page;
+        private BrowserContext context;
+        private Page page;
         private final Playwright playwright;
         private final Browser browser;
+
+        public PWStage(BrowserContext browserContext, Page page, Playwright playwright, Browser browser) {
+            this.context = browserContext;
+            this.page = page;
+            this.playwright = playwright;
+            this.browser = browser;
+        }
 
     }
 

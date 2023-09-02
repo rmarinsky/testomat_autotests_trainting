@@ -1,15 +1,18 @@
 package io.testomat.ui;
 
 import com.github.javafaker.Faker;
+import io.testomat.common.DramaExtension;
 import io.testomat.ui.common.pw.Configuration;
 import io.testomat.ui.common.pw.conditions.Condition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static io.testomat.ui.common.pw.PlaywrightWrapper.find;
 import static io.testomat.ui.common.pw.PlaywrightWrapper.open;
 
+@ExtendWith(DramaExtension.class)
 public class PWWrapperTests {
 
     Faker faker = new Faker();

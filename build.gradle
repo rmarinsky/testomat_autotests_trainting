@@ -42,3 +42,10 @@ test {
 
     finalizedBy "allureReport"
 }
+
+task pwServeTraces(type: JavaExec, group:'pw') {
+    mainClass = 'com.microsoft.playwright.CLI'
+    classpath = sourceSets.main.runtimeClasspath
+    args 'show-trace', 'build/pw/' + System.getProperty("target_test") + '.zip' //add name of the test's trace file
+    systemProperties = System.getProperties()
+}
