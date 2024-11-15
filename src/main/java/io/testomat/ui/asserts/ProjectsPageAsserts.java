@@ -12,7 +12,6 @@ public class ProjectsPageAsserts {
     private final BaseProjectInfo expectedProjectTile;
 
     public ProjectsPageAsserts(BaseProjectInfo expectedProjectTile) {
-
         this.expectedProjectTile = expectedProjectTile;
     }
 

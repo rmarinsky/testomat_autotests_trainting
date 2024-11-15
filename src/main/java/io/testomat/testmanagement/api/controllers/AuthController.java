@@ -1,4 +1,4 @@
-package io.testomat.api.controllers;
+package io.testomat.testmanagement.api.controllers;
 
 
 import io.qameta.allure.Step;

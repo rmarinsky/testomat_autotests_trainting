@@ -45,14 +45,6 @@ public class LoginDocTests {
         String titleOfTestSuite = new Faker().book().title();
         targetSuiteBody = String.format(targetSuiteBody, titleOfTestSuite);
 
-
-        RestAssured.given()
-                .header("Authorization", authToken)
-                .contentType("application/vnd.api+json")
-                .body(targetSuiteBody)
-                .post("/{targetProject}/suites", targetProject)
-                .prettyPeek();
-
     }
 
 }

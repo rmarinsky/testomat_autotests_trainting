@@ -1,7 +1,7 @@
 package io.testomat.ui.pages;
 
 import com.codeborne.selenide.Condition;
-import io.testomat.common.CredentialsLoader;
+import io.testomat.testmanagement.common.CredentialsLoader;
 
 import java.time.Duration;
 

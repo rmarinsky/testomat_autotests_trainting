@@ -1,7 +1,7 @@
 package io.testomat.api.asserts;
 
 import io.qameta.allure.Step;
-import io.testomat.api.dtos.postSuite.SuitesResponse;
+import io.testomat.testmanagement.api.dtos.postSuite.SuitesResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

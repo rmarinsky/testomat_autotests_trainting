@@ -1,7 +1,7 @@
-package io.testomat.api.dtos.postSuite;
+package io.testomat.testmanagement.api.dtos.postSuite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.testomat.api.dtos.getSuite.Children;
+import io.testomat.testmanagement.api.dtos.getSuite.Children;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package io.testomat.common;
+package io.testomat.testmanagement.common;
 
 import io.restassured.filter.FilterContext;
 import io.restassured.filter.OrderedFilter;

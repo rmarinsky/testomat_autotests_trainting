@@ -1,10 +1,10 @@
-package io.testomat.api.controllers;
+package io.testomat.testmanagement.api.controllers;
 
 import io.qameta.allure.Step;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
-import io.testomat.common.LogRequestFilter;
+import io.testomat.testmanagement.common.LogRequestFilter;
 
 public abstract class BaseController<T> {
 

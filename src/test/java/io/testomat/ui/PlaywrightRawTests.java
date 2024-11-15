@@ -79,7 +79,6 @@ public class PlaywrightRawTests {
 
     public void isHidden(Locator locator) {
         PlaywrightAssertions.assertThat(locator).isHidden(new LocatorAssertions.IsHiddenOptions().setTimeout(10000));
-
     }
 
 }

@@ -3,16 +3,16 @@ package io.testomat.api;
 import com.github.javafaker.Book;
 import com.github.javafaker.Faker;
 import io.testomat.api.asserts.SuiteResponseAsserts;
-import io.testomat.api.controllers.AuthController;
-import io.testomat.api.controllers.SuitesController;
-import io.testomat.api.dtos.postSuite.SuitesRequest;
-import io.testomat.api.dtos.postSuite.SuitesRequest.DataDetail;
-import io.testomat.api.dtos.postSuite.SuitesResponse;
+import io.testomat.testmanagement.api.controllers.AuthController;
+import io.testomat.testmanagement.api.controllers.SuitesController;
+import io.testomat.testmanagement.api.dtos.postSuite.SuitesRequest;
+import io.testomat.testmanagement.api.dtos.postSuite.SuitesRequest.DataDetail;
+import io.testomat.testmanagement.api.dtos.postSuite.SuitesResponse;
 import io.testomat.ui.common.pw.Configuration;
 import io.testomat.ui.common.pw.conditions.Condition;
 import org.junit.jupiter.api.*;
 
-import static io.testomat.api.dtos.postSuite.SuitesRequest.DataDetail.Attributes;
+import static io.testomat.testmanagement.api.dtos.postSuite.SuitesRequest.DataDetail.Attributes;
 import static io.testomat.ui.common.pw.PlaywrightWrapper.find;
 import static io.testomat.ui.common.pw.PlaywrightWrapper.open;
 import static io.testomat.ui.common.pw.conditions.Condition.text;
@@ -72,6 +72,8 @@ public class SuitesTests {
     @Test
     @DisplayName("auth negative tests")
     void authNegativeTests() {
+
+
         SuitesController suitesController = new SuitesController();
         suitesController.cleanToken();
 

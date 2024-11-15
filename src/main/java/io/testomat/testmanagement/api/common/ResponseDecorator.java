@@ -1,10 +1,10 @@
-package io.testomat.api.common;
+package io.testomat.testmanagement.api.common;
 
 import io.restassured.response.Response;
 import lombok.SneakyThrows;
 import org.assertj.core.api.Assertions;
 
-import static io.testomat.api.common.BindingExceptionHandler.catchResponseException;
+import static io.testomat.testmanagement.api.common.BindingExceptionHandler.catchResponseException;
 
 public class ResponseDecorator<T> {
 

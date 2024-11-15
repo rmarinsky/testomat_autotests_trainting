@@ -1,4 +1,4 @@
-package io.testomat.common;
+package io.testomat.testmanagement.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

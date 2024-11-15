@@ -1,6 +1,5 @@
 package io.testomat.ui.dtos;
 
-import io.testomat.ui.pages.ProjectsPage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

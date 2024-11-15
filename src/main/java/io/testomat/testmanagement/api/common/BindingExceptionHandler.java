@@ -1,4 +1,4 @@
-package io.testomat.api.common;
+package io.testomat.testmanagement.api.common;
 
 import lombok.SneakyThrows;
 
@@ -13,10 +13,6 @@ public class BindingExceptionHandler {
 
 
     private static final String USER_DIR = "user.dir";
-
-    public static void main(String[] args) {
-        // Use catchResponseException and getLineOfCodeOfClassVariable methods
-    }
 
     @SneakyThrows
     public static <T> Throwable catchResponseException(Exception e, Class<T> t) {

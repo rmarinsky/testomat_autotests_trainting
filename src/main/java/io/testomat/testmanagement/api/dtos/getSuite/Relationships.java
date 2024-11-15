@@ -1,4 +1,4 @@
-package io.testomat.api.dtos.getSuite;
+package io.testomat.testmanagement.api.dtos.getSuite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -10,8 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Branch{
+public class Relationships{
 
-	@JsonProperty("data")
-	private Object data;
+	@JsonProperty("children")
+	private Children children;
+
+	@JsonProperty("branch")
+	private Branch branch;
 }

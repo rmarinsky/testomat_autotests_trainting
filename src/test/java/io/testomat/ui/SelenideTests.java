@@ -2,8 +2,8 @@ package io.testomat.ui;
 
 import com.codeborne.selenide.Condition;
 import com.github.javafaker.Faker;
-import io.testomat.common.CredentialsLoader;
-import io.testomat.common.CredentialsLoader.Credentials;
+import io.testomat.testmanagement.common.CredentialsLoader;
+import io.testomat.testmanagement.common.CredentialsLoader.Credentials;
 import io.testomat.ui.dtos.BaseProjectInfo;
 import io.testomat.ui.pages.ProjectsPage;
 import io.testomat.ui.pages.SignInPage;
